@@ -1,0 +1,46 @@
+function doGet(request) {
+    var inKey = request.parameter.key
+    var inVal = request.parameter.val
+    var inOper = request.parameter.oper
+
+    var props = PropertiesService.getScriptProperties();
+    var outVal = null
+    
+    var outVal=null
+    var outStatus=null
+    
+    switch (inOper)  {
+        case "del":
+            props.deleteProperty(inKey);
+            outStatus = 'OK';
+            break;
+        case "set":
+            props.setProperty(inKey, inVal);
+            outStatus = 'OK';
+            break;
+        case "get":
+            outVal = props.getProperty(inKey);
+            if (outVal == null){
+              outStatus = 'NO_SUCH_PROPERTY';
+            }
+            else {
+              outStatus = 'OK';
+            }
+            break;
+        default:
+            outStatus = 'NO_SUCH_OPERATION';
+            break;
+    }
+    
+    var outDebug = request.parameter.token
+    var result = '<r>'
+    if (outVal != null) {
+        result += '<val>'+outVal+'<\/val>';
+    }
+    if (outStatus != null) {
+        result += '<status>'+outStatus+'<\/status>';
+    }
+    result += '<\/r>'
+    return ContentService.createTextOutput(result)
+        .setMimeType(ContentService.MimeType.XML);
+}
