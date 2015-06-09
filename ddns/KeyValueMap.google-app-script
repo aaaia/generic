@@ -1,3 +1,8 @@
+// author: https://github.com/aaaia
+// date: 20150609_0914 CEST
+// desctription: google apps script providing webservice for storing values in scripts properties
+// remarks: should be deployed with access to anyone even anonymous
+
 function doGet(request) {
     var inKey = request.parameter.key
     var inVal = request.parameter.val
