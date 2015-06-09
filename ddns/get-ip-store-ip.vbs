@@ -11,7 +11,8 @@ Dim configFile, configFileObject, ipSrvRsp, keyValueMapSrvRsp, keyValueMapSrvQue
 ' '''''''''''''''''''''''''''''''''''
 ' cfgIpServiceAddressWithQuery="http://ipinfo.io/ip"
 ' ' here You should put Your script publication address (can be viewed in "Publish"->"Deploy as web app" google app script menu
-' cfgKeyValueMapService="https://script.google.com/macros/s/A***************************lQ/exec?key=externalIp&oper=set"
+' cfgKeyValueMapService="https://script.google.com/macros/s/A***************************lQ/exec?oper=set&key=externalIp"
+' cfgDebugMode=false
 ' '''''''''''''''''''''''''''''''''''
 includeFile "config.vbs.repoignore"
 
@@ -33,6 +34,7 @@ End Sub
 ' description: make http request to rest service
 function makeRestRequest(fullAddresWithQuery) 
 	Dim restReq
+	Dim restResp
 	
 	' You can use Microsoft.XMLHTTP but in some sases it will result:
     '     Error number: 800700
@@ -44,5 +46,11 @@ function makeRestRequest(fullAddresWithQuery)
 	restReq.open "GET", fullAddresWithQuery, false
 	restReq.send
 
-	makeRestRequest = restReq.responseText
+	restResp = restReq.responseText
+	
+	if (cfgDebugMode) then
+	    Wscript.Echo("Request result: " & restResp)
+	end if
+	
+	makeRestRequest = restResp
 End function

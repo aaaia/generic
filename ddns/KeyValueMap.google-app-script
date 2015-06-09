@@ -14,13 +14,17 @@ function doGet(request) {
     var outVal=null
     var outStatus=null
     
+	//Due to google apps script bug it does not store logs from Log service. 
+	//  Therefore timestamp is holded also within properties.
     switch (inOper)  {
         case "del":
             props.deleteProperty(inKey);
+			props.setProperty(inKey+'_debugTimeStamp', (new Date()).toString());
             outStatus = 'OK';
             break;
         case "set":
             props.setProperty(inKey, inVal);
+			props.setProperty(inKey+'_debugTimeStamp', (new Date()).toString());
             outStatus = 'OK';
             break;
         case "get":
