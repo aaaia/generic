@@ -7,7 +7,7 @@ Option Explicit
 Dim configFile, configFileObject, ipSrvRsp, keyValueMapSrvRsp, keyValueMapSrvQuery
 
 ' loads cfg* variables
-' example config.vbs content:
+' example config.vbs.repoignore content:
 ' '''''''''''''''''''''''''''''''''''
 ' cfgIpServiceAddressWithQuery="http://ipinfo.io/ip"
 ' ' here You should put Your script publication address (can be viewed in "Publish"->"Deploy as web app" google app script menu
